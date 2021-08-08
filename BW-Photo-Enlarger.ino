@@ -10,7 +10,8 @@ DFRobot_LCD lcd(16,2);
 #define LED_TYPE WS2811
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
-int r, g, b;
+      
+      int r, g, b;
 
 const int startButton=5;
       int startButtonState;
