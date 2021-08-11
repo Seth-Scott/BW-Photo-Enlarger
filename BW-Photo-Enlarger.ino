@@ -48,6 +48,23 @@ void setup() {
     digitalWrite(tD,HIGH);
     digitalWrite(cU,HIGH);
     digitalWrite(cD,HIGH);
+
+
+    //debugs an issue where lights don't consistently work on startup
+    for(int j = 0; j<=6; j=j+1){
+      for(int i=0; i<NUM_LEDS; i++) {
+        leds[i] = CRGB(255, 0, 0);
+      }
+      FastLED.show();
+      delay(250);
+    }
+
+    for(int j = 0; j<=5; j=j+1){
+      for(int i=0; i<NUM_LEDS; i++) {
+        leds[i] = CRGB(0, 0, 0);
+      }
+      FastLED.show();
+    }
 }
 
 void loop() {
