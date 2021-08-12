@@ -24,6 +24,9 @@ unsigned long countdownBegin, countdown, timer;
 const int cU=6, cD=7; 
       int cUState, cDState, cVal=0;
       
+const int safeLight=2;
+      int safeLightState;
+
 
 void setup() {
     //LCD screen
@@ -41,6 +44,7 @@ void setup() {
     pinMode(tD,INPUT);
     pinMode(cU,INPUT);
     pinMode(cD,INPUT);
+    pinMode(safeLight,INPUT);
 
     //allows the user to use a button without an external resistor
     digitalWrite(startButton,HIGH);
@@ -48,6 +52,7 @@ void setup() {
     digitalWrite(tD,HIGH);
     digitalWrite(cU,HIGH);
     digitalWrite(cD,HIGH);
+    digitalWrite(safeLight,HIGH);
 
 
     //debugs an issue where lights don't consistently work on startup
