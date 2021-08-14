@@ -81,12 +81,23 @@ safeLightState=digitalRead(safeLight);
       leds[i] = CRGB(255, 0, 0);
     }
     FastLED.show();
+
+
+  //Let's the user know via LCD that safe mode is activated  
+  if(SL == false){
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("*SAFE MODE*");
+  }
+
+    
     //SL tracks the status of the safe light so it can be disabled when the switch is turned off
     SL = true;    
   }
 
   //tracks the state of the safe light and turns the enlarger head off if it was previously on
   if(safeLightState==1){      
+    
     //disables the safe light when the switch is turned off
     if(SL == true){
       for(int i=0; i<NUM_LEDS; i++) {
@@ -153,12 +164,14 @@ safeLightState=digitalRead(safeLight);
     }    
       //checks the state of the button (if you press the button it will read 0, unpressed will read 1)
       startButtonState=digitalRead(startButton);
+    
       //if the button is pressed, peg the countdownBegin int to millis() at the moment it was pressed, turns on the light 
       if(startButtonState==0){
         countdownBegin=millis();      
+      
       //turns on the LED panel
         for(int i=0; i<NUM_LEDS; i++) {
-        leds[i] = CRGB(r, g, b);
+          leds[i] = CRGB(r, g, b);
         }
         FastLED.show();
       }
