@@ -88,6 +88,7 @@ safeLightState=digitalRead(safeLight);
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("*SAFE MODE*");
+    countdownBegin = 0UL;
   }
 
     
