@@ -55,6 +55,13 @@ void setup() {
     digitalWrite(cD,HIGH);
     digitalWrite(safeLight,HIGH);
 
+    //sets text to be displayed at splash screen upon boot-up
+    lcd.setCursor(0,0);
+    lcd.print("SCOTTCO");
+    lcd.setCursor(0,1);
+    lcd.print("PHOTOGRAPHY");
+
+
     //debugs an issue where lights don't consistently work on startup
     for(int j = 0; j<=6; j=j+1){
       for(int i=0; i<NUM_LEDS; i++) {
