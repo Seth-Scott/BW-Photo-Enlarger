@@ -63,6 +63,7 @@ void setup() {
 
 
     //debugs an issue where lights don't consistently work on startup
+    //forces all of the lights to turn on at boot as "red"
     for(int j = 0; j<=6; j=j+1){
       for(int i=0; i<NUM_LEDS; i++) {
         leds[i] = CRGB(255, 0, 0);
@@ -71,6 +72,7 @@ void setup() {
       delay(250);
     }
 
+    //turns the boot-up red light off before loop/user input
     for(int j = 0; j<=5; j=j+1){
       for(int i=0; i<NUM_LEDS; i++) {
         leds[i] = CRGB(0, 0, 0);
