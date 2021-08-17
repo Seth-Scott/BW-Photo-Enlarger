@@ -88,6 +88,8 @@ safeLightState=digitalRead(safeLight);
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("*SAFE MODE*");
+
+    //bug fix where timer continues to countdown while safe mode is enabled
     countdownBegin = 0UL;
   }
 
