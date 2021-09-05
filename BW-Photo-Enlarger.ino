@@ -260,7 +260,7 @@ safeLightState=digitalRead(safeLight);
       lcd.setCursor(0,0);
       lcd.print("Time:  ");   
       //preceeds the LCD with a zero to fix trailing numbers 
-      if(timer<10000UL || countdown<10000UL){
+      if(timer<9900UL || countdown<10000UL){
         lcd.print("0");
       }      
       lcd.print(timer*.001);
