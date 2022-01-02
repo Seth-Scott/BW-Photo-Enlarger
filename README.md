@@ -11,3 +11,7 @@ The project is nearly entirely 3d printed. Minimal fasteners are used and most c
 ----
 
 <img src="assets/Completed_Photo.jpg" alt="Completed Photo" width="600"/>
+
+
+----
+# Documenting this project is in-process. Stay tuned for more info!
