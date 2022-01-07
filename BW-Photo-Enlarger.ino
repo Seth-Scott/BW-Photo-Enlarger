@@ -1,9 +1,9 @@
-//LCD libraries
+// LCD libraries
 #include <Wire.h>
 #include "DFRobot_LCD.h"
 DFRobot_LCD lcd(16,2);
 
-//LED libraries and pins
+// LED libraries and pins
 #include <FastLED.h>
 #define LED_PIN1 9
 #define NUM_LEDS 64
@@ -11,80 +11,80 @@ DFRobot_LCD lcd(16,2);
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
       
-      int r, g, b;
+int r, g, b;
 
 const int startButton=5;
-      int startButtonState;
+int startButtonState;
 
 const int tU=3, tD=4;
-      int tUState, tDState;
+int tUState, tDState;
 
 unsigned long countdownBegin, countdown, timer;
 
 const int cU=6, cD=7; 
-      int cUState, cDState, cVal=0;
+int cUState, cDState, cVal=0;
       
 const int safeLight=2;
-      int safeLightState;
-      bool SL=false;
+int safeLightState;
+bool SL=false;
 
 
 void setup() {
-    //LCD screen
-    lcd.init();
-    lcd.setRGB(255, 0, 0);
-    lcd.clear();
+// LCD screen
+lcd.init();
+lcd.setRGB(255, 0, 0);
+lcd.clear();
 
-    //LED
-    FastLED.addLeds<WS2812B, LED_PIN1, GRB>(leds, NUM_LEDS);
-    FastLED.setBrightness(255);
+// LED
+FastLED.addLeds<WS2812B, LED_PIN1, GRB>(leds, NUM_LEDS);
+FastLED.setBrightness(255);
 
-    //assigns digital pins as either inputs or outputs 
-    pinMode(startButton,INPUT);
-    pinMode(tU,INPUT);
-    pinMode(tD,INPUT);
-    pinMode(cU,INPUT);
-    pinMode(cD,INPUT);
-    pinMode(safeLight,INPUT);
+// assigns digital pins as either inputs or outputs 
+pinMode(startButton,INPUT);
+pinMode(tU,INPUT);
+pinMode(tD,INPUT);
+pinMode(cU,INPUT);
+pinMode(cD,INPUT);
+pinMode(safeLight,INPUT);
 
-    //allows the user to use a button without an external resistor
-    digitalWrite(startButton,HIGH);
-    digitalWrite(tU,HIGH);
-    digitalWrite(tD,HIGH);
-    digitalWrite(cU,HIGH);
-    digitalWrite(cD,HIGH);
-    digitalWrite(safeLight,HIGH);
+// allows the user to use a button without an external resistor
+digitalWrite(startButton,HIGH);
+digitalWrite(tU,HIGH);
+digitalWrite(tD,HIGH);
+digitalWrite(cU,HIGH);
+digitalWrite(cD,HIGH);
+digitalWrite(safeLight,HIGH);
 
-    //sets text to be displayed at splash screen upon boot-up
-    lcd.setCursor(0,0);
-    lcd.print("SCOTTCO");
-    lcd.setCursor(0,1);
-    lcd.print("PHOTOGRAPHY");
+// sets text to be displayed at splash screen upon boot-up
+lcd.setCursor(0,0);
+lcd.print("SCOTTCO");
+lcd.setCursor(0,1);
+lcd.print("PHOTOGRAPHY");
 
 
-    //debugs an issue where lights don't consistently work on startup
-    //forces all of the lights to turn on at boot as "red"
-    for(int j = 0; j<=6; j=j+1){
-      for(int i=0; i<NUM_LEDS; i++) {
-        leds[i] = CRGB(255, 0, 0);
-      }
-      FastLED.show();
-      delay(250);
-    }
+// debugs an issue where lights don't consistently work on startup
+// forces all of the lights to turn on at boot as "red"
+for(int j = 0; j<=6; j=j+1){
+  for(int i=0; i<NUM_LEDS; i++) {
+    leds[i] = CRGB(255, 0, 0);
+  }
+  FastLED.show();
+  delay(250);
+}
 
-    //turns the boot-up red light off before loop/user input
-    for(int j = 0; j<=5; j=j+1){
-      for(int i=0; i<NUM_LEDS; i++) {
-        leds[i] = CRGB(0, 0, 0);
-      }
-      FastLED.show();
-    }
+// turns the boot-up red light off before loop/user input
+for(int j = 0; j<=5; j=j+1){
+  for(int i=0; i<NUM_LEDS; i++) {
+    leds[i] = CRGB(0, 0, 0);
+  }
+  FastLED.show();
+}
 }
 
 void loop() {
 safeLightState=digitalRead(safeLight);
 
-  //turns on the safe light when the switch is toggled
+  // turns on the safe light when the switch is toggled
   if(safeLightState==0){
     for(int i=0; i<NUM_LEDS; i++) {
       leds[i] = CRGB(255, 0, 0);
@@ -92,25 +92,25 @@ safeLightState=digitalRead(safeLight);
     FastLED.show();
 
 
-  //Let's the user know via LCD that safe mode is activated  
+  // Let's the user know via LCD that safe mode is activated  
   if(SL == false){
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("*SAFE MODE*");
 
-    //bug fix where timer continues to countdown while safe mode is enabled
+    // bug fix where timer continues to countdown while safe mode is enabled
     countdownBegin = 0UL;
   }
 
     
-    //SL tracks the status of the safe light so it can be disabled when the switch is turned off
+    // SL tracks the status of the safe light so it can be disabled when the switch is turned off
     SL = true;    
   }
 
-  //tracks the state of the safe light and turns the enlarger head off if it was previously on
+  // tracks the state of the safe light and turns the enlarger head off if it was previously on
   if(safeLightState==1){      
     
-    //disables the safe light when the switch is turned off
+    // disables the safe light when the switch is turned off
     if(SL == true){
       for(int i=0; i<NUM_LEDS; i++) {
         leds[i] = CRGB(0, 0, 0);
@@ -119,7 +119,7 @@ safeLightState=digitalRead(safeLight);
       SL = false;
       }
     
-    //sets the LED RGB values based on contrast setting
+    // sets the LED RGB values based on contrast setting
     switch(cVal){
       
       case -1:
@@ -174,48 +174,48 @@ safeLightState=digitalRead(safeLight);
         r=0, g=0, b=0;
       break;
     }    
-      //checks the state of the button (if you press the button it will read 0, unpressed will read 1)
+      // checks the state of the button (if you press the button it will read 0, unpressed will read 1)
       startButtonState=digitalRead(startButton);
     
-      //if the button is pressed, peg the countdownBegin int to millis() at the moment it was pressed, turns on the light 
+      // if the button is pressed, peg the countdownBegin int to millis() at the moment it was pressed, turns on the light 
       if(startButtonState==0){
         countdownBegin=millis();      
       
-      //turns on the LED panel
+      // turns on the LED panel
         for(int i=0; i<NUM_LEDS; i++) {
           leds[i] = CRGB(r, g, b);
         }
         FastLED.show();
       }
     
-    //timer section  
-      //adds/subtracts time to the countdown;
+    // timer section  
+      // adds/subtracts time to the countdown;
       tUState=digitalRead(tU);
       tDState=digitalRead(tD);
-      //time-up button
+      // time-up button
       if(tUState==0){
-        //add half a second
+        // add half a second
         countdown=countdown+500UL;
-        //caps the time at sixty seconds
+        // caps the time at sixty seconds
         if(countdown>=60000UL){
           countdown=60000UL;
         }
       }
-      //time-down button
+      // time-down button
       if(tDState==0){
-        //remove half a second
+        // remove half a second
         countdown=countdown-500UL;
-        //caps the time at zero
+        // caps the time at zero
         if(countdown<=0UL){
           countdown=0UL;
         }
-        //prevents time from rolling over to max value from zero
+        // prevents time from rolling over to max value from zero
         if(countdown>=60000UL){
           countdown=0UL;
         }
       }
       
-      //establishes the timer, which is the timed data the user will see
+      // establishes the timer, which is the timed data the user will see
       if(countdownBegin>0){
         timer = (countdownBegin + countdown) - (millis() );
         if(timer>=countdownBegin+countdown){
@@ -236,19 +236,19 @@ safeLightState=digitalRead(safeLight);
       }
   
   
-    //contrast section
-      //adds/subtracts the contrast
+    // contrast section
+      // adds/subtracts the contrast
       cUState=digitalRead(cU);
       cDState=digitalRead(cD);        
   
-      //contrast up button
+      // contrast up button
       if(cUState == 0){
         cVal = cVal+1;
       }
       if(cVal >= 10){
         cVal = 10;
       }
-    //contrast down button
+    // contrast down button
       if(cDState == 0){
         cVal = cVal-1;
       }
@@ -256,16 +256,16 @@ safeLightState=digitalRead(safeLight);
         cVal= (-1);
       }
         
-      //lcd section, TIMER
+      // lcd section, TIMER
       lcd.setCursor(0,0);
       lcd.print("Time:  ");   
-      //preceeds the LCD with a zero to fix trailing numbers 
+      // preceeds the LCD with a zero to fix trailing numbers 
       if(timer<9900UL || countdown<10000UL){
         lcd.print("0");
       }      
       lcd.print(timer*.001);
   
-      //lcd section, CONTRAST
+      // lcd section, CONTRAST
       if(cVal >= (0) && cVal <=9){    
         lcd.setCursor(0,1);
         lcd.print("Contrast: ");
