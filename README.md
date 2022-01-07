@@ -4,7 +4,7 @@
 
 ----
 
-The goal of this project is to modernize analog photography. This project uses a 5v power supply, Adafruit's 8x8 NeoPixel LED matrix and an Arduino Nano to simulate contrast filters, precise digital timers and memorizes your settings for repeatable results. 
+The goal of this project is to modernize analog photography. This project uses an Arduino Nano, a 5v power supply, and  Adafruit's 8x8 NeoPixel LED matrix to simulate contrast filters, precise digital timers and memorizes your settings for repeatable results. 
 
 The project is nearly entirely 3d printed. Minimal fasteners are used and most connections are snaped together.
 
